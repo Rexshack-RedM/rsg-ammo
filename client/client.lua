@@ -645,3 +645,15 @@ function HandleReload()
         lib.notify({ title = 'You are not holding a weapon', type = 'error', duration = 5000 })
     end
 end
+
+------------------------------------------
+-- reload weapon by keybind
+------------------------------------------
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        if IsControlJustReleased(0, RSGCore.Shared.Keybinds[Config.AmmoReloadKeybind]) then
+            HandleReload()
+        end
+    end
+end)
