@@ -490,3 +490,158 @@ CreateThread(function()
         Wait(1000)
     end
 end)
+
+------------------------------------------
+-- easy reload weapon function
+------------------------------------------
+function HandleReload()
+    
+    if not Config.EasyReload then
+        return
+    end
+
+    local ped = PlayerPedId()
+    local weaponHash = Citizen.InvokeNative(0x8425C5F057012DAB, ped)
+    if weaponHash and weaponHash ~= -1569615261 then
+        local weapon = Citizen.InvokeNative(0x8425C5F057012DAB, ped)
+        local weapongroup = GetWeapontypeGroup(weapon)
+        local group_revolver = joaat('group_revolver')
+        local group_pistol = joaat('group_pistol')
+        local group_repeater = joaat('group_repeater')
+        local group_rifle = joaat('group_rifle')
+        local group_sniper = joaat('group_sniper')
+        local group_shotgun = joaat('group_shotgun')
+
+        if weapongroup == group_revolver then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_revolver', 1)
+            local ammo2 = RSGCore.Functions.HasItem('ammo_revolver_high_velocity', 1)
+            local ammo3 = RSGCore.Functions.HasItem('ammo_revolver_split_point', 1)
+            local ammo4 = RSGCore.Functions.HasItem('ammo_revolver_express', 1)
+            local ammo5 = RSGCore.Functions.HasItem('ammo_revolver_express_explosive', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REVOLVER')
+            end
+            if ammo2 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REVOLVER_HIGH_VELOCITY')
+            end
+            if ammo3 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REVOLVER_SPLIT_POINT')
+            end
+            if ammo4 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REVOLVER_EXPRESS')
+            end
+            if ammo5 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REVOLVER_EXPRESS_EXPLOSIVE')
+            end
+        end
+
+        if weapongroup == group_pistol then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_pistol', 1)
+            local ammo2 = RSGCore.Functions.HasItem('ammo_pistol_high_velocity', 1)
+            local ammo3 = RSGCore.Functions.HasItem('ammo_pistol_split_point', 1)
+            local ammo4 = RSGCore.Functions.HasItem('ammo_pistol_express', 1)
+            local ammo5 = RSGCore.Functions.HasItem('ammo_pistol_express_explosive', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_PISTOL')
+            end
+            if ammo2 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_PISTOL_HIGH_VELOCITY')
+            end
+            if ammo3 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_PISTOL_SPLIT_POINT')
+            end
+            if ammo4 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_PISTOL_EXPRESS')
+            end
+            if ammo5 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_PISTOL_EXPRESS_EXPLOSIVE')
+            end
+        end
+
+        if weapongroup == group_repeater then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_repeater', 1)
+            local ammo2 = RSGCore.Functions.HasItem('ammo_repeater_high_velocity', 1)
+            local ammo3 = RSGCore.Functions.HasItem('ammo_repeater_split_point', 1)
+            local ammo4 = RSGCore.Functions.HasItem('ammo_repeater_express', 1)
+            local ammo5 = RSGCore.Functions.HasItem('ammo_repeater_express_explosive', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REPEATER')
+            end
+            if ammo2 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REPEATER_HIGH_VELOCITY')
+            end
+            if ammo3 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REPEATER_SPLIT_POINT')
+            end
+            if ammo4 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REPEATER_EXPRESS')
+            end
+            if ammo5 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_REPEATER_EXPRESS_EXPLOSIVE')
+            end
+        end
+
+        if (weapongroup == group_rifle or weapongroup == group_sniper) and weaponHash ~= `weapon_rifle_elephant` and weaponHash ~= `weapon_rifle_varmint` then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_rifle', 1)
+            local ammo2 = RSGCore.Functions.HasItem('ammo_rifle_high_velocity', 1)
+            local ammo3 = RSGCore.Functions.HasItem('ammo_rifle_split_point', 1)
+            local ammo4 = RSGCore.Functions.HasItem('ammo_rifle_express', 1)
+            local ammo5 = RSGCore.Functions.HasItem('ammo_rifle_express_explosive', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE')
+            end
+            if ammo2 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE_HIGH_VELOCITY')
+            end
+            if ammo3 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE_SPLIT_POINT')
+            end
+            if ammo4 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE_EXPRESS')
+            end
+            if ammo5 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE_EXPRESS_EXPLOSIVE')
+            end
+        end
+
+        if weapongroup == group_shotgun then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_shotgun', 1)
+            local ammo2 = RSGCore.Functions.HasItem('ammo_shotgun_buckshot_incendiary', 1)
+            local ammo3 = RSGCore.Functions.HasItem('ammo_shotgun_slug', 1)
+            local ammo4 = RSGCore.Functions.HasItem('ammo_shotgun_slug_explosive', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_SHOTGUN')
+            end
+            if ammo2 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_SHOTGUN_BUCKSHOT_INCENDIARY')
+            end
+            if ammo3 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_SHOTGUN_SLUG')
+            end
+            if ammo4 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_SHOTGUN_SLUG_EXPLOSIVE')
+            end
+        end
+
+        if weaponHash == `weapon_rifle_elephant` then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_rifle_elephant', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE_ELEPHANT')
+            end
+        end
+        
+        if weaponHash == `weapon_rifle_varmint` then
+            local ammo1 = RSGCore.Functions.HasItem('ammo_varmint', 1)
+            local ammo2 = RSGCore.Functions.HasItem('ammo_varmint_tranquilizer', 1)
+            if ammo1 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_22')
+            end
+            if ammo2 then
+                TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_22_TRANQUILIZER')
+            end
+        end
+        
+    else
+        lib.notify({ title = 'You are not holding a weapon', type = 'error', duration = 5000 })
+    end
+end
