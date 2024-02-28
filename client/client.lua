@@ -75,7 +75,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     ----------------------------
     if weapongroup == 416676503 and ammotype == 'AMMO_PISTOL' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountPistolAmmo
         ammo_type = joaat('AMMO_PISTOL')
         ammo_save = 'ammo'
         ammo_item = 'ammo_pistol'
@@ -84,7 +84,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == 416676503 and ammotype == 'AMMO_PISTOL_HIGH_VELOCITY' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountPistolAmmo
         ammo_type = joaat('AMMO_PISTOL_HIGH_VELOCITY')
         ammo_save = 'ammo_high_velocity'
         ammo_item = 'ammo_pistol_high_velocity'
@@ -93,7 +93,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == 416676503 and ammotype == 'AMMO_PISTOL_SPLIT_POINT' then
         max_ammo = 50
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountPistolAmmo
         ammo_type = joaat('AMMO_PISTOL_SPLIT_POINT')
         ammo_save = 'ammo_split_point'
         ammo_item = 'ammo_pistol_split_point'
@@ -102,7 +102,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == 416676503 and ammotype == 'AMMO_PISTOL_EXPRESS' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountPistolAmmo
         ammo_type = joaat('AMMO_PISTOL_EXPRESS')
         ammo_save = 'ammo_express'
         ammo_item = 'ammo_pistol_express'
@@ -111,7 +111,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == 416676503 and ammotype == 'AMMO_PISTOL_EXPRESS_EXPLOSIVE' then
         max_ammo = 10
-        amount_ammo = Config.AmountRevolverExplosiveAmmo
+        amount_ammo = Config.AmountPistolExplosiveAmmo
         ammo_type = joaat('AMMO_PISTOL_EXPRESS_EXPLOSIVE')
         ammo_save = 'ammo_express_explosive'
         ammo_item = 'ammo_pistol_express_explosive'
@@ -123,7 +123,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     ----------------------------
     if weapongroup == -594562071 and ammotype == 'AMMO_REPEATER' then
         max_ammo = 200
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRepeaterAmmo
         ammo_type = joaat('AMMO_REPEATER')
         ammo_save = 'ammo'
         ammo_item = 'ammo_repeater'
@@ -132,7 +132,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == -594562071 and ammotype == 'AMMO_REPEATER_HIGH_VELOCITY' then
         max_ammo = 200
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRepeaterAmmo
         ammo_type = joaat('AMMO_REPEATER_HIGH_VELOCITY')
         ammo_save = 'ammo_high_velocity'
         ammo_item = 'ammo_repeater_high_velocity'
@@ -141,7 +141,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == -594562071 and ammotype == 'AMMO_REPEATER_SPLIT_POINT' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRepeaterAmmo
         ammo_type = joaat('AMMO_REPEATER_SPLIT_POINT')
         ammo_save = 'ammo_split_point'
         ammo_item = 'ammo_repeater_split_point'
@@ -150,7 +150,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == -594562071 and ammotype == 'AMMO_REPEATER_EXPRESS' then
         max_ammo = 200
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRepeaterAmmo
         ammo_type = joaat('AMMO_REPEATER_EXPRESS')
         ammo_save = 'ammo_express'
         ammo_item = 'ammo_repeater_express'
@@ -159,7 +159,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if weapongroup == -594562071 and ammotype == 'AMMO_REPEATER_EXPRESS_EXPLOSIVE' then
         max_ammo = 10
-        amount_ammo = Config.AmountRevolverExplosiveAmmo
+        amount_ammo = Config.AmountRepeaterExplosiveAmmo
         ammo_type = joaat('AMMO_REPEATER_EXPRESS_EXPLOSIVE')
         ammo_save = 'ammo_express_explosive'
         ammo_item = 'ammo_repeater_express_explosive'
@@ -171,7 +171,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     ----------------------------
     if (weapongroup == 970310034 or weapongroup == -1212426201) and ammotype == 'AMMO_RIFLE' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRifleAmmo
         ammo_type = joaat('AMMO_RIFLE')
         ammo_save = 'ammo'
         ammo_item = 'ammo_rifle'
@@ -180,7 +180,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if (weapongroup == 970310034 or weapongroup == -1212426201) and ammotype == 'AMMO_RIFLE_HIGH_VELOCITY' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRifleAmmo
         ammo_type = joaat('AMMO_RIFLE_HIGH_VELOCITY')
         ammo_save = 'ammo_high_velocity'
         ammo_item = 'ammo_rifle_high_velocity'
@@ -189,7 +189,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if (weapongroup == 970310034 or weapongroup == -1212426201) and ammotype == 'AMMO_RIFLE_SPLIT_POINT' then
         max_ammo = 50
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRifleAmmo
         ammo_type = joaat('AMMO_RIFLE_SPLIT_POINT')
         ammo_save = 'ammo_split_point'
         ammo_item = 'ammo_rifle_split_point'
@@ -198,7 +198,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if (weapongroup == 970310034 or weapongroup == -1212426201) and ammotype == 'AMMO_RIFLE_EXPRESS' then
         max_ammo = 100
-        amount_ammo = Config.AmountRevolverAmmo
+        amount_ammo = Config.AmountRifleAmmo
         ammo_type = joaat('AMMO_RIFLE_EXPRESS')
         ammo_save = 'ammo_express'
         ammo_item = 'ammo_rifle_express'
@@ -207,7 +207,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
     if (weapongroup == 970310034 or weapongroup == -1212426201) and ammotype == 'AMMO_RIFLE_EXPRESS_EXPLOSIVE' then
         max_ammo = 10
-        amount_ammo = Config.AmountRevolverExplosiveAmmo
+        amount_ammo = Config.AmountRifleExplosiveAmmo
         ammo_type = joaat('AMMO_RIFLE_EXPRESS_EXPLOSIVE')
         ammo_save = 'ammo_express_explosive'
         ammo_item = 'ammo_rifle_express_explosive'
