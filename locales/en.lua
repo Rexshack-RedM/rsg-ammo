@@ -1,7 +1,10 @@
 local Translations = {
 
     client = {
-        lang_1 = 'add here',
+        lang_1 = 'Not Holding a Weapon',
+        lang_2 = 'Wrong Ammo for Weapon',
+        lang_3 = 'Max Ammo Reached',
+        lang_4 = 'You are not holding a weapon',
     },
 
     server = {

@@ -5,8 +5,7 @@ local RSGCore = exports['rsg-core']:GetCoreObject()
 ------------------------------------------
 RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
 
-    local ped = PlayerPedId()
-    local weapon = Citizen.InvokeNative(0x8425C5F057012DAB, ped)
+    local weapon = GetPedCurrentHeldWeapon(cache.ped)
     local weapongroup = GetWeapontypeGroup(weapon)
     local weaponInHands = exports['rsg-weapons']:weaponInHands()
     local currentSerial = weaponInHands[weapon]
@@ -18,7 +17,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     local valid_ammo = false
 
     if weapon == -1569615261 then
-        lib.notify({ title = 'Not Holding a Weapon', type = 'error', duration = 5000 })
+        lib.notify({ title = Lang:t('client.lang_1'), type = 'error', duration = 5000 })
         return
     end
 
@@ -326,19 +325,19 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     end
 
     if not valid_ammo then
-        lib.notify({ title = 'Wrong Ammo for Weapon', type = 'error', duration = 5000 })
+        lib.notify({ title = Lang:t('client.lang_2'), type = 'error', duration = 5000 })
         return
     end
 
-    local currentammo = GetPedAmmoByType(ped, ammo_type)
+    local currentammo = GetPedAmmoByType(cache.ped, ammo_type)
     local total = currentammo + amount_ammo
 
     if total <= max_ammo then
-        Citizen.InvokeNative(0x106A811C6D3035F3, ped, ammo_type, amount_ammo, 0xCA3454E6)
+        AddAmmoToPedByType(cache.ped, ammo_type, amount_ammo, 0xCA3454E6)
         TriggerServerEvent('rsg-ammo:server:removeitem', ammo_item, 1)
         TriggerServerEvent('rsg-ammo:server:updateammo', currentSerial, ammo_save, total)
     else
-        lib.notify({ title = 'Max Ammo Reached', type = 'error', duration = 5000 })
+        lib.notify({ title = Lang:t('client.lang_3'), type = 'error', duration = 5000 })
     end
 
 end)
@@ -349,16 +348,15 @@ end)
 CreateThread(function()
     SetWeaponsNoAutoswap(true)
     while true do
-        local ped = PlayerPedId()
         local weaponInHands = exports['rsg-weapons']:weaponInHands()
-        local heldWeapon = Citizen.InvokeNative(0x8425C5F057012DAB, ped)
+        local heldWeapon = GetPedCurrentHeldWeapon(cache.ped)
         local currentSerial = weaponInHands[heldWeapon]
         if weaponInHands[heldWeapon] ~= nil and heldWeapon ~= -1569615261 then
-            local IsGun = Citizen.InvokeNative(0x705BE297EEBDB95D, heldWeapon)
+            local IsGun = IsWeaponAGun(heldWeapon)
             if IsGun then
-                local weaponObject = Citizen.InvokeNative(0x6CA484C9A7377E4F, ped, 1)
-                local currenttype = Citizen.InvokeNative(0x7E7B19A4355FEE13, ped, weaponObject)
-                local currentammo = GetPedAmmoByType(ped, currenttype)
+                local weaponObject = GetPedWeaponObject(cache.ped, 1)
+                local currenttype = GetCurrentPedWeaponAmmoType(cache.ped, weaponObject)
+                local currentammo = GetPedAmmoByType(cache.ped, currenttype)
 
                 -----------------------
                 -- revolver ammo
@@ -500,10 +498,9 @@ function HandleReload()
         return
     end
 
-    local ped = PlayerPedId()
-    local weaponHash = Citizen.InvokeNative(0x8425C5F057012DAB, ped)
+    local weaponHash = GetPedCurrentHeldWeapon(cache.ped)
     if weaponHash and weaponHash ~= -1569615261 then
-        local weapon = Citizen.InvokeNative(0x8425C5F057012DAB, ped)
+        local weapon = GetPedCurrentHeldWeapon(cache.ped)
         local weapongroup = GetWeapontypeGroup(weapon)
         local group_revolver = joaat('group_revolver')
         local group_pistol = joaat('group_pistol')
@@ -642,7 +639,7 @@ function HandleReload()
         end
         
     else
-        lib.notify({ title = 'You are not holding a weapon', type = 'error', duration = 5000 })
+        lib.notify({ title = Lang:t('client.lang_4'), type = 'error', duration = 5000 })
     end
 end
 
