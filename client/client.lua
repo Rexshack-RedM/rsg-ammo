@@ -346,7 +346,6 @@ end)
 -- update ammo loop
 ------------------------------------------
 CreateThread(function()
-    SetWeaponsNoAutoswap(true)
     while true do
         local weaponInHands = exports['rsg-weapons']:weaponInHands()
         local heldWeapon = GetPedCurrentHeldWeapon(cache.ped)
@@ -646,9 +645,9 @@ end
 ------------------------------------------
 -- reload weapon by keybind
 ------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Wait(0)
         if IsControlJustReleased(0, RSGCore.Shared.Keybinds[Config.AmmoReloadKeybind]) then
             HandleReload()
         end
