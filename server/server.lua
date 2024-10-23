@@ -158,6 +158,7 @@ for k, v in pairs(Config.BoxAmmo) do
         if Player.Functions.RemoveItem(k, 1, item.slot) then
             TriggerClientEvent('rsg-inventory:client:ItemBox', RSGCore.Shared.Items[k], 'remove')
             Player.Functions.AddItem(v.item, v.amount)
+            TriggerClientEvent('rsg-inventory:client:ItemBox', RSGCore.Shared.Items[v.item], 'add', v.amount)
         end
     end)
 end
