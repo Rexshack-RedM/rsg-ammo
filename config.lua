@@ -20,7 +20,6 @@ Config.AmountShotgunExplosiveAmmo = 10
 Config.AmountArrowAmmo = 12
 Config.AmountThrowablesAmmo = 1
 
-
 Config.BoxAmmo              = {
     ['ammo_box_revolver']                    = { item = 'ammo_revolver',                    amount = 10 },
     ['ammo_box_revolver_express']            = { item = 'ammo_revolver_express',            amount = 10 },
@@ -43,8 +42,8 @@ Config.BoxAmmo              = {
     ['ammo_box_rifle_velocity']              = { item = 'ammo_rifle_high_velocity',         amount = 10 },
     ['ammo_box_rifle_splitpoint']            = { item = 'ammo_rifle_split_point',           amount = 10 },
     ['ammo_box_shotgun']                     = { item = 'ammo_shotgun',                     amount = 10 },
-    ['ammo_box_shotgun_buckshot_incendiary'] = { item = 'ammo_shotgun_buckshot_incendiary', amount = 10},
-    ['ammo_box_shotgun_slug']                = { item = 'ammo_shotgun_slug',                amount = 10},
-    ['ammo_box_shotgun_slug_explosive']      = { item = 'ammo_shotgun_slug_explosive',      amount = 10},
-    ['ammo_box_rifle_elephant']              = { item = 'ammo_rifle_elephant',              amount = 10},
+    ['ammo_box_shotgun_buckshot_incendiary'] = { item = 'ammo_shotgun_buckshot_incendiary', amount = 10 },
+    ['ammo_box_shotgun_slug']                = { item = 'ammo_shotgun_slug',                amount = 10 },
+    ['ammo_box_shotgun_slug_explosive']      = { item = 'ammo_shotgun_slug_explosive',      amount = 10 },
+    ['ammo_box_rifle_elephant']              = { item = 'ammo_rifle_elephant',              amount = 10 },
 }
