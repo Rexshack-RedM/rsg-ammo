@@ -149,6 +149,21 @@ RSGCore.Functions.CreateUseableItem('ammo_arrow_dynamite', function(source, item
 end)
 
 ------------------------------------------
+-- update ammo box
+------------------------------------------
+for k, v in pairs(Config.BoxAmmo) do
+    RSGCore.Functions.CreateUseableItem(k, function(source, item)
+        local src = source
+        local Player = RSGCore.Functions.GetPlayer(src)
+        if Player.Functions.RemoveItem(k, 1, item.slot) and Player.Functions.RemoveItem('bottle', v.amount, item.slot) then
+            TriggerClientEvent('rsg-inventory:client:ItemBox', RSGCore.Shared.Items[k], 'remove')
+            TriggerClientEvent('rsg-inventory:client:ItemBox', RSGCore.Shared.Items['bottle'], 'remove')
+            Player.Functions.AddItem(v.item, v.amount)
+        end
+    end)
+end
+
+------------------------------------------
 -- update ammo
 ------------------------------------------
 RegisterServerEvent('rsg-ammo:server:updateammo', function(serial, ammotype, ammo)
