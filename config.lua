@@ -2,6 +2,7 @@ Config = {}
 
 Config.EasyReload = true -- Set to false if you want to disable easy reload
 Config.AmmoReloadKeybind = 'R'
+Config.OpenAmmoBoxTime = 10000
 
 -- amount of revover ammo per load
 Config.AmountRevolverAmmo = 12

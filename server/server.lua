@@ -155,11 +155,8 @@ for k, v in pairs(Config.BoxAmmo) do
     RSGCore.Functions.CreateUseableItem(k, function(source, item)
         local src = source
         local Player = RSGCore.Functions.GetPlayer(src)
-        if Player.Functions.RemoveItem(k, 1, item.slot) then
-            TriggerClientEvent('rsg-inventory:client:ItemBox', RSGCore.Shared.Items[k], 'remove', 1)
-            Player.Functions.AddItem(v.item, v.amount)
-            TriggerClientEvent('rsg-inventory:client:ItemBox', RSGCore.Shared.Items[v.item], 'add', v.amount)
-        end
+        if not Player then return end
+        TriggerClientEvent('rsg-ammo:client:openAmmoBox', src, item.name, item.label, v.item, v.amount)
     end)
 end
 
@@ -212,6 +209,20 @@ RegisterServerEvent('rsg-ammo:server:removeitem')
 AddEventHandler('rsg-ammo:server:removeitem', function(item, amount)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
+    if not Player then return end
     Player.Functions.RemoveItem(item, amount)
-    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[item], 'remove', amount )
+    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[item], 'remove', amount)
+end)
+
+---------------------------------------------
+-- open ammo box
+---------------------------------------------
+RegisterServerEvent('rsg-ammo:server:openAmmoBox')
+AddEventHandler('rsg-ammo:server:openAmmoBox', function(removeitem, giveitem, amount)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    if not Player then return end
+    Player.Functions.RemoveItem(removeitem, 1)
+    Player.Functions.AddItem(giveitem, amount)
+    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[giveitem], 'add', amount)
 end)

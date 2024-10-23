@@ -653,3 +653,18 @@ CreateThread(function()
         end
     end
 end)
+
+------------------------------------------
+-- open ammo box
+------------------------------------------
+RegisterNetEvent('rsg-ammo:client:openAmmoBox', function(removeitem, removeitemlabel, giveitem, amount)
+    LocalPlayer.state:set("inv_busy", true, true)
+    lib.progressBar({
+        duration = Config.OpenAmmoBoxTime,
+        label = 'Opening '..removeitemlabel,
+        useWhileDead = false,
+        canCancel = false,
+    })
+    TriggerServerEvent('rsg-ammo:server:openAmmoBox', removeitem, giveitem, amount)
+    LocalPlayer.state:set("inv_busy", false, true)
+end)
