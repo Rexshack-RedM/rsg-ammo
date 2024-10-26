@@ -220,7 +220,7 @@ AddEventHandler('rsg-ammo:server:openAmmoBox', function(removeitem, giveitem, am
     local Player = RSGCore.Functions.GetPlayer(src)
     if not Player then return end
     Player.Functions.RemoveItem(removeitem, 1)
-    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[removeitem], 'remove', amount)
+    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[removeitem], 'remove', 1)
     Player.Functions.AddItem(giveitem, amount)
     TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[giveitem], 'add', amount)
 end)
