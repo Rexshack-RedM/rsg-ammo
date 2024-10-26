@@ -1,4 +1,5 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
+lib.locale()
 
 ------------------------------------------
 -- load ammo
@@ -17,7 +18,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     local valid_ammo = false
 
     if weapon == -1569615261 then
-        lib.notify({ title = Lang:t('client.lang_1'), type = 'error', duration = 5000 })
+        lib.notify({ title = locale('cl_lang_1'), type = 'error', duration = 5000 })
         return
     end
 
@@ -325,7 +326,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
     end
 
     if not valid_ammo then
-        lib.notify({ title = Lang:t('client.lang_2'), type = 'error', duration = 5000 })
+        lib.notify({ title = locale('cl_lang_2'), type = 'error', duration = 5000 })
         return
     end
 
@@ -337,7 +338,7 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammotype)
         TriggerServerEvent('rsg-ammo:server:removeitem', ammo_item, 1)
         TriggerServerEvent('rsg-ammo:server:updateammo', currentSerial, ammo_save, total)
     else
-        lib.notify({ title = Lang:t('client.lang_3'), type = 'error', duration = 5000 })
+        lib.notify({ title = locale('cl_lang_3'), type = 'error', duration = 5000 })
     end
 
 end)
@@ -492,7 +493,7 @@ end)
 -- easy reload weapon function
 ------------------------------------------
 function HandleReload()
-    
+
     if not Config.EasyReload then
         return
     end
@@ -625,7 +626,7 @@ function HandleReload()
                 TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_RIFLE_ELEPHANT')
             end
         end
-        
+
         if weaponHash == `weapon_rifle_varmint` then
             local ammo1 = RSGCore.Functions.HasItem('ammo_varmint', 1)
             local ammo2 = RSGCore.Functions.HasItem('ammo_varmint_tranquilizer', 1)
@@ -636,9 +637,9 @@ function HandleReload()
                 TriggerEvent('rsg-ammo:client:AddAmmo', 'AMMO_22_TRANQUILIZER')
             end
         end
-        
+
     else
-        lib.notify({ title = Lang:t('client.lang_4'), type = 'error', duration = 5000 })
+        --- lib.notify({ title = locale('cl_lang_4'), type = 'error', duration = 5000 })
     end
 end
 
@@ -661,7 +662,7 @@ RegisterNetEvent('rsg-ammo:client:openAmmoBox', function(removeitem, removeiteml
     LocalPlayer.state:set("inv_busy", true, true)
     lib.progressBar({
         duration = Config.OpenAmmoBoxTime,
-        label = 'Opening '..removeitemlabel,
+        label = locale('Opening') .. ' '.. removeitemlabel,
         useWhileDead = false,
         canCancel = false,
     })
