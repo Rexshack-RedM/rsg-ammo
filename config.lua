@@ -1,10 +1,7 @@
 Config = {}
 
-Config.EasyReload = true -- Set to false if you want to disable easy reload
-Config.AmmoReloadKeybind = 'R'
 Config.OpenAmmoBoxTime = 10000
 
--- amount of revover ammo per load
 Config.AmountRevolverAmmo = 12
 Config.AmountRevolverExplosiveAmmo = 10
 Config.AmountPistolAmmo = 12
@@ -13,38 +10,44 @@ Config.AmountRifleAmmo = 12
 Config.AmountRifleExplosiveAmmo = 10
 Config.AmountElephantRifleAmmo = 10
 Config.AmountVarmintAmmo = 28
+Config.AmountVarmintTranquilizerAmmo = 12
 Config.AmountRepeaterAmmo = 12
 Config.AmountRepeaterExplosiveAmmo = 10
 Config.AmountShotgunAmmo = 12
 Config.AmountShotgunIncendiaryAmmo = 7
 Config.AmountShotgunExplosiveAmmo = 10
 Config.AmountArrowAmmo = 12
+Config.AmountPoisonArrowAmmo = 8
+Config.AmountFireArrowAmmo = 8
+Config.AmountDynamiteArrowAmmo = 1
 Config.AmountThrowablesAmmo = 1
 
-Config.BoxAmmo              = {
-    ['ammo_box_revolver']                    = { item = 'ammo_revolver',                    amount = 10 },
-    ['ammo_box_revolver_express']            = { item = 'ammo_revolver_express',            amount = 10 },
-    ['ammo_box_revolver_explosive']          = { item = 'ammo_revolver_express_explosive',  amount = 10 },
-    ['ammo_box_revolver_velocity']           = { item = 'ammo_revolver_high_velocity',      amount = 10 },
-    ['ammo_box_revolver_splitpoint']         = { item = 'ammo_revolver_split_point',        amount = 10 },
-    ['ammo_box_pistol']                      = { item = 'ammo_pistol',                      amount = 10 },
-    ['ammo_box_pistol_express']              = { item = 'ammo_pistol_express',              amount = 10 },
-    ['ammo_box_pistol_explosive']            = { item = 'ammo_pistol_express_explosive',    amount = 10 },
-    ['ammo_box_pistol_velocity']             = { item = 'ammo_pistol_high_velocity',        amount = 10 },
-    ['ammo_box_pistol_splitpoint']           = { item = 'ammo_pistol_split_point',          amount = 10 },
-    ['ammo_box_repeater']                    = { item = 'ammo_repeater',                    amount = 10 },
-    ['ammo_box_repeater_express']            = { item = 'ammo_repeater_express',            amount = 10 },
-    ['ammo_box_repeater_explosive']          = { item = 'ammo_repeater_express_explosive',  amount = 10 },
-    ['ammo_box_repeater_velocity']           = { item = 'ammo_repeater_high_velocity',      amount = 10 },
-    ['ammo_box_repeater_splitpoint']         = { item = 'ammo_repeater_split_point',        amount = 10 },
-    ['ammo_box_rifle']                       = { item = 'ammo_rifle',                       amount = 10 },
-    ['ammo_box_rifle_express']               = { item = 'ammo_rifle_express',               amount = 10 },
-    ['ammo_box_rifle_explosive']             = { item = 'ammo_rifle_express_explosive',     amount = 10 },
-    ['ammo_box_rifle_velocity']              = { item = 'ammo_rifle_high_velocity',         amount = 10 },
-    ['ammo_box_rifle_splitpoint']            = { item = 'ammo_rifle_split_point',           amount = 10 },
-    ['ammo_box_shotgun']                     = { item = 'ammo_shotgun',                     amount = 10 },
-    ['ammo_box_shotgun_buckshot_incendiary'] = { item = 'ammo_shotgun_buckshot_incendiary', amount = 10 },
-    ['ammo_box_shotgun_slug']                = { item = 'ammo_shotgun_slug',                amount = 10 },
-    ['ammo_box_shotgun_slug_explosive']      = { item = 'ammo_shotgun_slug_explosive',      amount = 10 },
-    ['ammo_box_rifle_elephant']              = { item = 'ammo_rifle_elephant',              amount = 10 },
+Config.BoxAmmo = {
+    ['ammo_box_revolver']                    = { ammoType = 'AMMO_REVOLVER',                    amount = Config.AmountRevolverAmmo },
+    ['ammo_box_revolver_express']            = { ammoType = 'AMMO_REVOLVER_EXPRESS',            amount = Config.AmountRevolverAmmo },
+    ['ammo_box_revolver_explosive']          = { ammoType = 'AMMO_REVOLVER_EXPRESS_EXPLOSIVE',  amount = Config.AmountRevolverExplosiveAmmo },
+    ['ammo_box_revolver_velocity']           = { ammoType = 'AMMO_REVOLVER_HIGH_VELOCITY',      amount = Config.AmountRevolverAmmo },
+    ['ammo_box_revolver_splitpoint']         = { ammoType = 'AMMO_REVOLVER_SPLIT_POINT',        amount = Config.AmountRevolverAmmo },
+    ['ammo_box_pistol']                      = { ammoType = 'AMMO_PISTOL',                      amount = Config.AmountPistolAmmo },
+    ['ammo_box_pistol_express']              = { ammoType = 'AMMO_PISTOL_EXPRESS',              amount = Config.AmountPistolAmmo },
+    ['ammo_box_pistol_explosive']            = { ammoType = 'AMMO_PISTOL_EXPRESS_EXPLOSIVE',    amount = Config.AmountPistolExplosiveAmmo },
+    ['ammo_box_pistol_velocity']             = { ammoType = 'AMMO_PISTOL_HIGH_VELOCITY',        amount = Config.AmountPistolAmmo },
+    ['ammo_box_pistol_splitpoint']           = { ammoType = 'AMMO_PISTOL_SPLIT_POINT',          amount = Config.AmountPistolAmmo },
+    ['ammo_box_repeater']                    = { ammoType = 'AMMO_REPEATER',                    amount = Config.AmountRepeaterAmmo },
+    ['ammo_box_repeater_express']            = { ammoType = 'AMMO_REPEATER_EXPRESS',            amount = Config.AmountRepeaterAmmo },
+    ['ammo_box_repeater_explosive']          = { ammoType = 'AMMO_REPEATER_EXPRESS_EXPLOSIVE',  amount = Config.AmountRepeaterAmmo },
+    ['ammo_box_repeater_velocity']           = { ammoType = 'AMMO_REPEATER_HIGH_VELOCITY',      amount = Config.AmountRepeaterAmmo },
+    ['ammo_box_repeater_splitpoint']         = { ammoType = 'AMMO_REPEATER_SPLIT_POINT',        amount = Config.AmountRepeaterAmmo },
+    ['ammo_box_rifle']                       = { ammoType = 'AMMO_RIFLE',                       amount = Config.AmountRifleAmmo },
+    ['ammo_box_rifle_express']               = { ammoType = 'AMMO_RIFLE_EXPRESS',               amount = Config.AmountRifleAmmo },
+    ['ammo_box_rifle_explosive']             = { ammoType = 'AMMO_RIFLE_EXPRESS_EXPLOSIVE',     amount = Config.AmountRifleExplosiveAmmo },
+    ['ammo_box_rifle_velocity']              = { ammoType = 'AMMO_RIFLE_HIGH_VELOCITY',         amount = Config.AmountRifleAmmo },
+    ['ammo_box_rifle_splitpoint']            = { ammoType = 'AMMO_RIFLE_SPLIT_POINT',           amount = Config.AmountRifleAmmo },
+    ['ammo_box_shotgun']                     = { ammoType = 'AMMO_SHOTGUN',                     amount = Config.AmountShotgunAmmo },
+    ['ammo_box_shotgun_buckshot_incendiary'] = { ammoType = 'AMMO_SHOTGUN_BUCKSHOT_INCENDIARY', amount = Config.AmountShotgunIncendiaryAmmo },
+    ['ammo_box_shotgun_slug']                = { ammoType = 'AMMO_SHOTGUN_SLUG',                amount = Config.AmountShotgunAmmo },
+    ['ammo_box_shotgun_slug_explosive']      = { ammoType = 'AMMO_SHOTGUN_SLUG_EXPLOSIVE',      amount = Config.AmountShotgunExplosiveAmmo },
+    ['ammo_box_rifle_elephant']              = { ammoType = 'AMMO_RIFLE_ELEPHANT',              amount = Config.AmountElephantRifleAmmo },
+    ['ammo_box_varmint']                     = { ammoType = 'AMMO_22',                          amount = Config.AmountVarmintAmmo },
+    ['ammo_box_varmint_tranquilizer']        = { ammoType = 'AMMO_22_TRANQUILIZER',             amount = Config.AmountVarmintTranquilizerAmmo },
 }
