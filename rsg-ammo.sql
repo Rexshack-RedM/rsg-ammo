@@ -46,6 +46,5 @@ CREATE TABLE `player_ammo` (
 	`thrown_hatchet_hunter` INT(3) NOT NULL DEFAULT '0',
 	`thrown_hatchet_cleaver` INT(3) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`),
-	UNIQUE INDEX `citizenid` (`citizenid`),
-	CONSTRAINT `FK_player_ammo_players` FOREIGN KEY (`citizenid`) REFERENCES `players` (`citizenid`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1;
+	UNIQUE INDEX `citizenid` (`citizenid`)
+) ENGINE=InnoDB;
