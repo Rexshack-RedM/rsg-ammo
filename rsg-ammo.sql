@@ -1,6 +1,6 @@
 CREATE TABLE `player_ammo` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`citizenid` VARCHAR(9) NOT NULL,
+	`citizenid` VARCHAR(255) NOT NULL,
 	`ammo_revolver` INT(3) NOT NULL DEFAULT '0',
 	`ammo_revolver_express` INT(3) NOT NULL DEFAULT '0',
 	`ammo_revolver_express_explosive` INT(3) NOT NULL DEFAULT '0',
