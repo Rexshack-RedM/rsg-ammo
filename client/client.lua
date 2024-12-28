@@ -72,6 +72,7 @@ end)
 -- set saved ammo values when player joins
 ------------------------------------------
 local function onPlayerLoaded()
+    _ammoTypes = _generateAmmoTypesTable()
     local reverseAmmoTypes = {}
     for ammoType, ammoData in pairs(_ammoTypes) do
         reverseAmmoTypes[ammoData.dbColumn] = ammoType
@@ -117,12 +118,13 @@ local function onPlayerLoaded()
 end
 AddEventHandler('RSGCore:Client:OnPlayerLoaded', onPlayerLoaded)
 
+--[[ for debug
 AddEventHandler('onResourceStart', function (resourceName) 
     if GetCurrentResourceName() == resourceName then
-        _ammoTypes = _generateAmmoTypesTable()
-      --  onPlayerLoaded() --debug
+        onPlayerLoaded()
     end
-end)
+end) 
+]]
 
 AddEventHandler('onResourceStop', function (resourceName) 
     if GetCurrentResourceName() == resourceName then
