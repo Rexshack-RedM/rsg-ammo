@@ -1,11 +1,11 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
 
-for _itemName, _ammoData in pairs(Config.BoxAmmo) do
+for _itemName, _ammoType in pairs(Config.BoxAmmo) do
     RSGCore.Functions.CreateUseableItem(_itemName, function(source, item)
         local src = source
         local Player = RSGCore.Functions.GetPlayer(src)
         if not Player then return end
-        TriggerClientEvent('rsg-ammo:client:openAmmoBox', src, item.name, item.label, _ammoData.ammoType, _ammoData.amount)
+        TriggerClientEvent('rsg-ammo:client:openAmmoBox', src, item.name, _ammoType, Config.AmmoTypes[_ammoType].refill)
     end)
 end
 
@@ -13,19 +13,23 @@ end
 -- use arrow ammo
 ------------------------------------------
 RSGCore.Functions.CreateUseableItem('ammo_arrow', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW', Config.AmountArrowAmmo)
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW', Config.AmmoTypes['AMMO_ARROW'].refill)
+end)
+
+RSGCore.Functions.CreateUseableItem('ammo_arrow_small', function(source, item)
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_SMALL_GAME', Config.AmmoTypes['AMMO_ARROW_SMALL_GAME'].refill)
 end)
 
 RSGCore.Functions.CreateUseableItem('ammo_arrow_fire', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_FIRE', Config.AmountFireArrowAmmo)
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_FIRE', Config.AmmoTypes['AMMO_ARROW_FIRE'].refill)
 end)
 
 RSGCore.Functions.CreateUseableItem('ammo_arrow_poison', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_POISON', Config.AmountPoisonArrowAmmo)
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_POISON', Config.AmmoTypes['AMMO_ARROW_POISON'].refill)
 end)
 
 RSGCore.Functions.CreateUseableItem('ammo_arrow_dynamite', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_DYNAMITE', Config.AmountDynamiteArrowAmmo)
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_DYNAMITE', Config.AmmoTypes['AMMO_ARROW_DYNAMITE'].refill)
 end)
 
 ---------------------------------------------
@@ -44,13 +48,13 @@ end)
 -- open ammo box
 ---------------------------------------------
 RegisterServerEvent('rsg-ammo:server:openAmmoBox')
-AddEventHandler('rsg-ammo:server:openAmmoBox', function(removeitem, ammotype, amount)
+AddEventHandler('rsg-ammo:server:openAmmoBox', function(ammoBoxItem, ammoType, amount)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
     if not Player then return end
-    Player.Functions.RemoveItem(removeitem, 1)
-    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[removeitem], 'remove', 1)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', src, ammotype, amount)
+    Player.Functions.RemoveItem(ammoBoxItem, 1)
+    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[ammoBoxItem], 'remove', 1)
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', src, ammoType, amount)
 
 end)
 
