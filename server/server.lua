@@ -45,6 +45,18 @@ AddEventHandler('rsg-ammo:server:removeitem', function(item, amount)
 end)
 
 ---------------------------------------------
+-- add item
+---------------------------------------------
+RegisterServerEvent('rsg-ammo:server:additem')
+AddEventHandler('rsg-ammo:server:additem', function(item, amount)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    if not Player then return end
+    Player.Functions.AddItem(item, amount)
+    TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[item], 'add', amount)
+end)
+
+---------------------------------------------
 -- open ammo box
 ---------------------------------------------
 RegisterServerEvent('rsg-ammo:server:openAmmoBox')
@@ -54,8 +66,7 @@ AddEventHandler('rsg-ammo:server:openAmmoBox', function(ammoBoxItem, ammoType, a
     if not Player then return end
     Player.Functions.RemoveItem(ammoBoxItem, 1)
     TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[ammoBoxItem], 'remove', 1)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', src, ammoType, amount)
-
+    TriggerClientEvent('rsg-ammo:client:AddAmmo', src, ammoBoxItem, ammoType, amount)
 end)
 
 RSGCore.Functions.CreateCallback('rsg-ammo:server:initializeDb', function(source, cb)
