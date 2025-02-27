@@ -136,7 +136,6 @@ local function onPlayerLoaded()
         dbDataInitialized = true
     end)
 end
---AddEventHandler('RSGCore:Client:OnPlayerLoaded', onPlayerLoaded)
 
 
 AddEventHandler('onClientResourceStart', function (resourceName) 
