@@ -8,11 +8,10 @@ local dbDataInitialized = false
 ------------------------------------------
 -- load ammo
 ------------------------------------------
-RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoBoxItem, ammoType, amount)
+RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoType, amount)
     local ammoDefinition = _ammoTypes[ammoType]
     if not ammoDefinition then
         lib.notify({ title = locale('cl_lang_2'), type = 'error', duration = 5000 })
-        TriggerServerEvent('rsg-ammo:server:additem', ammoBoxItem, 1)
         return
     end
 
@@ -22,7 +21,6 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoBoxItem, ammoType, amou
         lib.notify({ title = locale('cl_lang_6') .. '  x' .. amount, duration = 5000 })
     else
         lib.notify({ title = locale('cl_lang_3'), type = 'error', duration = 5000 })
-        TriggerServerEvent('rsg-ammo:server:additem', ammoBoxItem, 1)
     end
 
 end)
