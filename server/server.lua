@@ -12,25 +12,33 @@ end
 ------------------------------------------
 -- use arrow ammo
 ------------------------------------------
-RSGCore.Functions.CreateUseableItem('ammo_arrow', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW', Config.AmmoTypes['AMMO_ARROW'].refill)
-end)
+local function useArrowItem(source, item, ammoType)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    if not Player then return end
 
-RSGCore.Functions.CreateUseableItem('ammo_arrow_small', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_SMALL_GAME', Config.AmmoTypes['AMMO_ARROW_SMALL_GAME'].refill)
-end)
+    local amount = Config.AmmoTypes[ammoType].refill
+    local canAddAmmo = lib.callback.await('rsg-ammo:client:CanAddAmmo', src, ammoType, amount)
+    if canAddAmmo then
+        TriggerClientEvent('rsg-ammo:client:AddAmmo', src, ammoType, amount)
+        Player.Functions.RemoveItem(item.name, 1)
+        TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[item], 'remove', 1)
+    end
+end
 
-RSGCore.Functions.CreateUseableItem('ammo_arrow_fire', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_FIRE', Config.AmmoTypes['AMMO_ARROW_FIRE'].refill)
-end)
+local arrowTypes = {
+    ammo_arrow = 'AMMO_ARROW',
+    ammo_arrow_small = 'AMMO_ARROW_SMALL_GAME',
+    ammo_arrow_fire = 'AMMO_ARROW_FIRE',
+    ammo_arrow_poison = 'AMMO_ARROW_POISON',
+    ammo_arrow_dynamite = 'AMMO_ARROW_DYNAMITE'
+}
 
-RSGCore.Functions.CreateUseableItem('ammo_arrow_poison', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_POISON', Config.AmmoTypes['AMMO_ARROW_POISON'].refill)
-end)
-
-RSGCore.Functions.CreateUseableItem('ammo_arrow_dynamite', function(source, item)
-    TriggerClientEvent('rsg-ammo:client:AddAmmo', source, 'AMMO_ARROW_DYNAMITE', Config.AmmoTypes['AMMO_ARROW_DYNAMITE'].refill)
-end)
+for itemName, ammoType in pairs(arrowTypes) do
+    RSGCore.Functions.CreateUseableItem(itemName, function(source, item)
+        useArrowItem(source, item, ammoType)
+    end)
+end
 
 ---------------------------------------------
 -- remove item

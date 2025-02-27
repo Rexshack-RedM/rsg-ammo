@@ -8,10 +8,29 @@ local dbDataInitialized = false
 ------------------------------------------
 -- load ammo
 ------------------------------------------
-RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoType, amount)
+local function canAddAmmo(ammoType, amount) 
     local ammoDefinition = _ammoTypes[ammoType]
     if not ammoDefinition then
         lib.notify({ title = locale('cl_lang_2'), type = 'error', duration = 5000 })
+        return false
+    end
+
+    local total = GetPedAmmoByType(cache.ped, ammoType) + amount
+    if total <= ammoDefinition.maxAmmo then
+        return true
+    else
+        lib.notify({ title = locale('cl_lang_3'), type = 'error', duration = 5000 })
+        return false
+    end
+end
+
+lib.callback.register('rsg-ammo:client:CanAddAmmo', function(ammoType, amount)
+    return canAddAmmo(ammoType, amount)
+end)
+
+RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoType, amount)
+    local ammoDefinition = _ammoTypes[ammoType]
+    if not ammoDefinition then
         return
     end
 
@@ -19,16 +38,15 @@ RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoType, amount)
     if total <= ammoDefinition.maxAmmo then
         AddAmmoToPedByType(cache.ped, ammoDefinition.hash, amount)
         lib.notify({ title = locale('cl_lang_6') .. '  x' .. amount, duration = 5000 })
-    else
-        lib.notify({ title = locale('cl_lang_3'), type = 'error', duration = 5000 })
     end
-
 end)
 
 ------------------------------------------
 -- open ammo box
 ------------------------------------------
 RegisterNetEvent('rsg-ammo:client:openAmmoBox', function(ammoBoxItem, ammoType, amount)
+    if not canAddAmmo(ammoType, amount) then return end
+
     LocalPlayer.state:set("inv_busy", true, true)
     lib.progressBar({
         duration = Config.OpenAmmoBoxTime,
@@ -72,6 +90,8 @@ end)
 -- set saved ammo values when player joins
 ------------------------------------------
 local function onPlayerLoaded()
+    repeat Wait(500) until LocalPlayer.state.isLoggedIn
+    
     _ammoTypes = _generateAmmoTypesTable()
     local reverseAmmoTypes = {}
     for ammoType, ammoData in pairs(_ammoTypes) do
@@ -116,15 +136,15 @@ local function onPlayerLoaded()
         dbDataInitialized = true
     end)
 end
-AddEventHandler('RSGCore:Client:OnPlayerLoaded', onPlayerLoaded)
+--AddEventHandler('RSGCore:Client:OnPlayerLoaded', onPlayerLoaded)
 
---[[ for debug
-AddEventHandler('onResourceStart', function (resourceName) 
+
+AddEventHandler('onClientResourceStart', function (resourceName) 
     if GetCurrentResourceName() == resourceName then
         onPlayerLoaded()
     end
 end) 
-]]
+
 
 AddEventHandler('onResourceStop', function (resourceName) 
     if GetCurrentResourceName() == resourceName then
