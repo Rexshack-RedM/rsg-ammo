@@ -22,7 +22,6 @@ local function useArrowItem(source, item, ammoType)
     if canAddAmmo then
         TriggerClientEvent('rsg-ammo:client:AddAmmo', src, ammoType, amount)
         Player.Functions.RemoveItem(item.name, 1)
-        TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[item], 'remove', 1)
     end
 end
 
