@@ -47,12 +47,15 @@ end)
 RegisterNetEvent('rsg-ammo:client:openAmmoBox', function(ammoBoxItem, ammoType, amount)
     if not canAddAmmo(ammoType, amount) then return end
 
+    if LocalPlayer.state.inv_busy then return end
+
     LocalPlayer.state:set("inv_busy", true, true)
     lib.progressBar({
         duration = Config.OpenAmmoBoxTime,
         label = locale('cl_lang_5') .. ' '.. RSGCore.Shared.Items[ammoBoxItem].label,
         useWhileDead = false,
         canCancel = false,
+        disableControl = true,
     })
     TriggerServerEvent('rsg-ammo:server:openAmmoBox', ammoBoxItem, ammoType, amount)
     LocalPlayer.state:set("inv_busy", false, true)
@@ -90,8 +93,6 @@ end)
 -- set saved ammo values when player joins
 ------------------------------------------
 local function onPlayerLoaded()
-    repeat Wait(500) until LocalPlayer.state.isLoggedIn
-    
     _ammoTypes = _generateAmmoTypesTable()
     local reverseAmmoTypes = {}
     for ammoType, ammoData in pairs(_ammoTypes) do
@@ -136,11 +137,13 @@ local function onPlayerLoaded()
         dbDataInitialized = true
     end)
 end
+AddEventHandler('RSGCore:Client:OnPlayerLoaded', onPlayerLoaded)
 
-
-AddEventHandler('onClientResourceStart', function (resourceName) 
+AddEventHandler('onResourceStart', function (resourceName) 
     if GetCurrentResourceName() == resourceName then
-        onPlayerLoaded()
+        if LocalPlayer.state.isLoggedIn and not dbDataInitialized then 
+            onPlayerLoaded() 
+        end
     end
 end) 
 
