@@ -55,7 +55,6 @@ RegisterNetEvent('rsg-ammo:client:openAmmoBox', function(ammoBoxItem, ammoType, 
         label = locale('cl_lang_5') .. ' '.. RSGCore.Shared.Items[ammoBoxItem].label,
         useWhileDead = false,
         canCancel = false,
-        disableControl = true,
     })
     TriggerServerEvent('rsg-ammo:server:openAmmoBox', ammoBoxItem, ammoType, amount)
     LocalPlayer.state:set("inv_busy", false, true)
