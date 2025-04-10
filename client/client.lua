@@ -73,7 +73,7 @@ CreateThread(function()
             for ammoType, ammoData in pairs(_ammoTypes) do
                 amount = GetPedAmmoByType(cache.ped, ammoData.hash)
                 
-                if not amount ~= ammoCache[ammoType] then
+                if amount ~= ammoCache[ammoType] then
                     update[ammoData.dbColumn] = amount
                     ammoCache[ammoType] = amount
                 end
@@ -82,9 +82,9 @@ CreateThread(function()
             if next(update) ~= nil then
                 TriggerServerEvent('rsg-ammo:server:updateDb', update)
             end
-        
-            Wait(Config.SaveAmmoInterval)
         end
+        
+        Wait(Config.SaveAmmoInterval)
     end
 end)
 
