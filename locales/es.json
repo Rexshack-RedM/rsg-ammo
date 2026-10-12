@@ -1,9 +1,6 @@
 {
-        "cl_lang_1" : "No tienes un arma en mano",
-        "cl_lang_2" : "Munición incorrecta para el arma",
-        "cl_lang_3" : "Munición máxima alcanzada",
-        "cl_lang_4" : "No tienes un arma en mano",
-        "cl_lang_5" : "Abriendo",
-        "cl_lang_6" : "Ammo replenished"
+    "ammo_unknown": "Tipo de munición desconocido",
+    "ammo_max_reached": "Munición máxima alcanzada",
+    "opening_box": "Abriendo %s",
+    "ammo_replenished": "Munición repuesta x%s"
 }
-    

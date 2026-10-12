@@ -1,8 +1,6 @@
 {
-    "cl_lang_1" : "Tu n'as pas d'arme en main",
-    "cl_lang_2" : "Munitions incorrectes pour l'arme",
-    "cl_lang_3" : "Munition maximale atteinte",
-    "cl_lang_4" : "Tu n'as pas d'arme en main",
-    "cl_lang_5" : "Ouverture",
-    "cl_lang_6" : "Ammo replenished"
+    "ammo_unknown": "Type de munitions inconnu",
+    "ammo_max_reached": "Munitions maximales atteintes",
+    "opening_box": "Ouverture de %s",
+    "ammo_replenished": "Munitions réapprovisionnées x%s"
 }

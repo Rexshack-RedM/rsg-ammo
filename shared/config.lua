@@ -1,9 +1,12 @@
 Config = {}
 
-Config.SaveAmmoInterval = 1000
+-- how often (ms) changed ammo counts are saved to the database
+Config.SaveAmmoInterval = 10000
 
+-- progress bar time (ms) when opening an ammo box
 Config.OpenAmmoBoxTime = 2000
 
+-- ammo box items (progress bar) -> ammo type
 Config.BoxAmmo = {
     ['ammo_box_revolver']                    = 'AMMO_REVOLVER',
     ['ammo_box_revolver_express']            = 'AMMO_REVOLVER_EXPRESS',
@@ -34,6 +37,16 @@ Config.BoxAmmo = {
     ['ammo_box_varmint_tranquilizer']        = 'AMMO_22_TRANQUILIZER',
 }
 
+-- arrow items (used instantly) -> ammo type
+Config.ArrowAmmo = {
+    ['ammo_arrow']          = 'AMMO_ARROW',
+    ['ammo_arrow_small']    = 'AMMO_ARROW_SMALL_GAME',
+    ['ammo_arrow_fire']     = 'AMMO_ARROW_FIRE',
+    ['ammo_arrow_poison']   = 'AMMO_ARROW_POISON',
+    ['ammo_arrow_dynamite'] = 'AMMO_ARROW_DYNAMITE',
+}
+
+-- maxAmmo = carry limit, refill = amount given per item
 Config.AmmoTypes = {
     ['AMMO_REVOLVER']                    = { maxAmmo = 200, refill = 12 },
     ['AMMO_REVOLVER_HIGH_VELOCITY']      = { maxAmmo = 200, refill = 12 },

@@ -1,8 +1,6 @@
 {
-        "cl_lang_1" : "Não Está Segurando uma Arma",
-        "cl_lang_2" : "Munição Incorreta para a Arma",
-        "cl_lang_3" : "Munição Máxima Atingida",
-        "cl_lang_4" : "Você não está segurando uma arma",
-        "cl_lang_5" : "Abrindo",
-        "cl_lang_6" : "Munição reabastecida"
+    "ammo_unknown": "Tipo de munição desconhecido",
+    "ammo_max_reached": "Munição máxima atingida",
+    "opening_box": "Abrindo %s",
+    "ammo_replenished": "Munição reabastecida x%s"
 }
