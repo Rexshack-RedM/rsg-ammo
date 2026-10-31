@@ -1,5 +1,4 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
-lib.locale()
 
 local ammoTypes = {}
 local ammoCache = {}
@@ -40,31 +39,31 @@ end
 local function canAddAmmo(ammoType, amount)
     local def = ammoTypes[ammoType]
     if not def then
-        lib.notify({ title = locale('ammo_unknown'), type = 'error', duration = 5000 })
+        RSGCore.Functions.Notify({ title = locale('ammo_unknown'), type = 'error', duration = 5000 })
         return false
     end
-    if GetPedAmmoByType(cache.ped, def.hash) + amount > def.maxAmmo then
-        lib.notify({ title = locale('ammo_max_reached'), type = 'error', duration = 5000 })
+    if GetPedAmmoByType(PlayerPedId(), def.hash) + amount > def.maxAmmo then
+        RSGCore.Functions.Notify({ title = locale('ammo_max_reached'), type = 'error', duration = 5000 })
         return false
     end
     return true
 end
 
-lib.callback.register('rsg-ammo:client:CanAddAmmo', function(ammoType, amount)
-    if opening or LocalPlayer.state.inv_busy then return false end
-    return canAddAmmo(ammoType, amount)
+RSGCore.Functions.CreateClientCallback('rsg-ammo:client:CanAddAmmo', function(cb, ammoType, amount)
+    if opening or LocalPlayer.state.inv_busy then return cb(false) end
+    cb(canAddAmmo(ammoType, amount))
 end)
 
 RegisterNetEvent('rsg-ammo:client:AddAmmo', function(ammoType, amount)
     local def = ammoTypes[ammoType]
     if not def then return end
 
-    local current = GetPedAmmoByType(cache.ped, def.hash)
-    local toAdd = math.min(amount, def.maxAmmo - current)
+    local ped = PlayerPedId()
+    local toAdd = math.min(amount, def.maxAmmo - GetPedAmmoByType(ped, def.hash))
     if toAdd <= 0 then return end
 
-    AddAmmoToPedByType(cache.ped, def.hash, toAdd)
-    lib.notify({ title = locale('ammo_replenished', toAdd), type = 'success', duration = 5000 })
+    AddAmmoToPedByType(ped, def.hash, toAdd)
+    RSGCore.Functions.Notify({ title = locale('ammo_replenished', toAdd), type = 'success', duration = 5000 })
 end)
 
 ------------------------------------------
@@ -76,12 +75,12 @@ RegisterNetEvent('rsg-ammo:client:openAmmoBox', function(ammoBoxItem)
     LocalPlayer.state:set('inv_busy', true, true)
 
     local itemData = RSGCore.Shared.Items[ammoBoxItem]
-    local done = lib.progressBar({
+    local done = RSGCore.Functions.ProgressBar({
         duration = Config.OpenAmmoBoxTime,
         label = locale('opening_box', itemData and itemData.label or ammoBoxItem),
         useWhileDead = false,
         canCancel = true,
-        disable = { move = false, car = true, combat = true },
+        disable = { move = false, mount = true, combat = true },
     })
 
     TriggerServerEvent(done and 'rsg-ammo:server:openAmmoBox' or 'rsg-ammo:server:cancelOpen')
@@ -92,23 +91,27 @@ end)
 ------------------------------------------
 -- save loop (only sends changed values)
 ------------------------------------------
+local function saveAmmo()
+    if not initialized then return end
+    local ped = PlayerPedId()
+    local update
+    for ammoType, def in pairs(ammoTypes) do
+        local amount = GetPedAmmoByType(ped, def.hash)
+        if amount ~= ammoCache[ammoType] then
+            update = update or {}
+            update[def.dbColumn] = amount
+            ammoCache[ammoType] = amount
+        end
+    end
+    if update then
+        TriggerServerEvent('rsg-ammo:server:updateDb', update)
+    end
+end
+
 CreateThread(function()
     while true do
         Wait(Config.SaveAmmoInterval)
-        if initialized and LocalPlayer.state.isLoggedIn then
-            local update
-            for ammoType, def in pairs(ammoTypes) do
-                local amount = GetPedAmmoByType(cache.ped, def.hash)
-                if amount ~= ammoCache[ammoType] then
-                    update = update or {}
-                    update[def.dbColumn] = amount
-                    ammoCache[ammoType] = amount
-                end
-            end
-            if update then
-                TriggerServerEvent('rsg-ammo:server:updateDb', update)
-            end
-        end
+        if LocalPlayer.state.isLoggedIn then saveAmmo() end
     end
 end)
 
@@ -117,17 +120,21 @@ end)
 ------------------------------------------
 local function onPlayerLoaded()
     initialized = false
-    local row = lib.callback.await('rsg-ammo:server:initializeDb', false)
+    local row = RSGCore.Functions.AwaitCallback('rsg-ammo:server:initializeDb')
     if not row then return end
 
+    local ped = PlayerPedId()
     for ammoType, def in pairs(ammoTypes) do
-        local amount = tonumber(row[def.dbColumn]) or 0
+        local amount = math.min(tonumber(row[def.dbColumn]) or 0, def.maxAmmo)
         if amount > 0 then
             local weapon = throwableWeapons[ammoType]
-            if weapon and not HasPedGotWeapon(cache.ped, weapon, 0, false) then
-                GiveWeaponToPed(cache.ped, weapon, 0, false, true)
+            if weapon and not HasPedGotWeapon(ped, weapon, 0, false) then
+                GiveWeaponToPed(ped, weapon, 0, false, true)
             end
-            SetPedAmmoByType(cache.ped, def.hash, math.min(amount, def.maxAmmo))
+        end
+        -- always set (incl. 0) so ammo from a previous character on the same ped doesn't carry over
+        if GetPedAmmoByType(ped, def.hash) ~= amount then
+            SetPedAmmoByType(ped, def.hash, amount)
         end
         ammoCache[ammoType] = amount
     end
@@ -137,6 +144,7 @@ end
 RegisterNetEvent('RSGCore:Client:OnPlayerLoaded', onPlayerLoaded)
 
 RegisterNetEvent('RSGCore:Client:OnPlayerUnload', function()
+    saveAmmo() -- flush changes since the last interval before logout / character switch
     initialized = false
     ammoCache = {}
 end)

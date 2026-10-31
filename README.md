@@ -15,17 +15,16 @@ Players refill their weapons by using ammo boxes and arrows from their inventory
 - 🏹 **Arrow items** (regular, small game, fire, poison, dynamite) that refill instantly.
 - 💾 **Persistent ammo** for every ammo type, including throwables: dynamite, molotovs, throwing knives, tomahawks, bolas and hatchets.
 - 🚫 **Per-type carry limits**: an item is never used up if the player is already at max ammo.
-- ⏳ **Cancellable progress bar** when opening a box; cancelling keeps the box.
+- ⏳ **Cancellable progress bar** (rsg-core) when opening a box; cancelling keeps the box.
 - 🗄️ **Automatic database setup**: the table and any new ammo columns are created on start, with a manual SQL file as backup.
 - 🔒 **Server-authoritative**: the server decides the item, ammo type and amount; saved values are validated and clamped.
-- 🌍 **Localised** with ox_lib: `en`, `de`, `el`, `es`, `fr`, `ja`, `nl`, `pl`, `pt-br`, `ro`.
+- 🌍 **Localised** via rsg-core: `en`, `de`, `el`, `es`, `fr`, `ja`, `nl`, `pl`, `pt-br`, `ro`.
 
 ---
 
 ## 🛠️ Dependencies
 - [rsg-core](https://github.com/Rexshack-RedM/rsg-core)
 - [rsg-inventory](https://github.com/Rexshack-RedM/rsg-inventory)
-- [ox_lib](https://github.com/overextended/ox_lib)
 - [oxmysql](https://github.com/overextended/oxmysql)
 
 ---
@@ -35,7 +34,6 @@ Players refill their weapons by using ammo boxes and arrows from their inventory
 2. Make sure all ammo items exist in `rsg-core/shared/items.lua` with `useable = true` (see [Items](#-items)).
 3. Add it to `server.cfg` **after** its dependencies:
    ```cfg
-   ensure ox_lib
    ensure oxmysql
    ensure rsg-core
    ensure rsg-inventory
@@ -56,7 +54,7 @@ Players refill their weapons by using ammo boxes and arrows from their inventory
 
 If you're already carrying the maximum for that ammo type you'll see **"Max Ammo Reached"** and the item isn't used.
 
-Your ammo is saved automatically and restored when you next log in with that character.
+Your ammo is saved automatically (every interval and on logout/character switch) and restored when you next log in with that character.
 
 **Server owners**
 - Sell ammo items in your shops, or give them with `/giveitem [id] ammo_box_revolver 1`.
@@ -116,7 +114,7 @@ ammo_box_revolver = { name = 'ammo_box_revolver', label = 'Revolver Ammo Box', w
 ## 🌍 Locales
 All player-facing text lives in `locales/*.json`. Choose the language in `server.cfg`:
 ```cfg
-setr ox:locale en
+setr rsg:locale en   # falls back to ox:locale, then en
 ```
 Available: `en`, `de`, `el`, `es`, `fr`, `ja`, `nl`, `pl`, `pt-br`, `ro`.
 
@@ -125,7 +123,7 @@ Available: `en`, `de`, `el`, `es`, `fr`, `ja`, `nl`, `pl`, `pt-br`, `ro`.
 ## 🔌 Exports (client)
 ```lua
 local ammoTypes = exports['rsg-ammo']:GetAmmoTypes()
--- { AMMO_REVOLVER = { hash = ..., dbColumn = 'ammo_revolver', maxAmmo = 200 }, ... }
+-- { AMMO_REVOLVER = { hash = ..., dbColumn = 'ammo_revolver', maxAmmo = 200, refill = 12 }, ... }
 ```
 
 ---
@@ -136,7 +134,7 @@ local ammoTypes = exports['rsg-ammo']:GetAmmoTypes()
 | Item does nothing when used | Check it exists in `items.lua` with `useable = true` and is listed in `Config.BoxAmmo` or `Config.ArrowAmmo`. |
 | "Max Ammo Reached" | The player is at `maxAmmo` for that type; raise it in config if needed. |
 | Ammo not saved after relog | Look for `[rsg-ammo] database setup failed` in the console; if shown, import `installation/rsg-ammo.sql`. |
-| Text shows as a key (e.g. `ammo_max_reached`) | Check `setr ox:locale` is set to one of the available languages. |
+| Text shows as a key (e.g. `ammo_max_reached`) | Check `setr rsg:locale` is set to one of the available languages. |
 
 ---
 

@@ -86,7 +86,7 @@ local function registerAmmoItem(itemName, ammoType, useProgress)
         if not RSGCore.Functions.GetPlayer(src) then return end
 
         local amount = ammoData.refill
-        if not lib.callback.await('rsg-ammo:client:CanAddAmmo', src, ammoType, amount) then return end
+        if not RSGCore.Functions.AwaitClientCallback('rsg-ammo:client:CanAddAmmo', src, 5000, ammoType, amount) then return end
 
         -- the server decides what the client may claim; the client only confirms
         local openTime = useProgress and Config.OpenAmmoBoxTime or 0
@@ -130,10 +130,10 @@ end)
 ------------------------------------------
 -- load saved ammo
 ------------------------------------------
-lib.callback.register('rsg-ammo:server:initializeDb', function(source)
+RSGCore.Functions.CreateCallback('rsg-ammo:server:initializeDb', function(source, cb)
     while not dbReady do Wait(100) end
     local Player = RSGCore.Functions.GetPlayer(source)
-    if not Player then return nil end
+    if not Player then return cb(nil) end
     local citizenid = Player.PlayerData.citizenid
 
     local row = MySQL.single.await('SELECT * FROM player_ammo WHERE citizenid = ? LIMIT 1', { citizenid })
@@ -141,7 +141,7 @@ lib.callback.register('rsg-ammo:server:initializeDb', function(source)
         MySQL.insert.await('INSERT IGNORE INTO player_ammo (citizenid) VALUES (?)', { citizenid })
         row = MySQL.single.await('SELECT * FROM player_ammo WHERE citizenid = ? LIMIT 1', { citizenid })
     end
-    return row
+    cb(row)
 end)
 
 ------------------------------------------
