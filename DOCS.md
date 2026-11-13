@@ -75,4 +75,4 @@ The server picks item, type and amount; the client never sends an amount to add.
 | "Max Ammo Reached" | Player is at the limit for that type |
 | Ammo lost after restart | Start `oxmysql`, `rsg-core`, `rsg-inventory` before rsg-ammo |
 
-Support: https://buymeacoffee.com/rexshack
+Support the Project : https://rexshack.tebex.store/
